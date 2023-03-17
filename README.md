@@ -9,4 +9,6 @@ You'll also need tkinter and configparser, which you can install in your termina
 
 also i only tested this on linux so sorry if there are bugs on other operating systems! 
 
-in terms of actually using it, just make sure the config.ini is in the same folder as the python file or else the saving system wont work!! if you want you can use auto-py-to-exe or pyinstaller to turn it into an exe, or run it in your terminal with the "python counter.py" command. Hope it works well for you, be sure to report any issues you have! ^_^
+in terms of actually using it, just make sure the config.ini is in the same folder as the python file or else the saving system wont work!! if you want you can use auto-py-to-exe or pyinstaller to turn it into an exe, or run it in your terminal with the "python counter.py" command. Also, you can edit the config.ini in a text editor to add the stats for any ongoing runs you have. 
+
+Hope it works well for you, be sure to report any issues you have! ^_^

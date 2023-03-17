@@ -10,6 +10,8 @@ class Setup:
 
     def __init__(self):
         
+        self.x = 0
+
         #layout of setup window
         self.root = tk.Tk()
         self.root.geometry("500x300")
@@ -38,13 +40,16 @@ class Setup:
     def load(self):
         
         def count():
-            global x
-            x += 1
+            self.x += 1
             self.label2.config(text=self.x)
+
+        global title
+        title = (config['SAVE 1']['TITLE'])
 
         self.load_window = tk.Toplevel()
         self.load_window.geometry("500x200")
         self.load_window['background']='#525252'
+        self.load_window.title(config['SAVE 1']['TITLE'])
         self.load_window.title(config['SAVE 1']['TITLE'])
         self.x = int(config['SAVE 1']['COUNT']) 
         self.label = tk.Label(self.load_window, text=(config['SAVE 1']['TITLE']), font=('Arial', 18), fg='white', bg='#525252')
@@ -90,9 +95,8 @@ class Setup:
 
     # increment x by 1
     def count(self):
-        global x
-        x += 1
-        self.label2.config(text=x)
+        self.x += 1
+        self.label2.config(text=self.x)
 
     def save_on_close(self):
         if messagebox.askyesno(title="Quit?", message="Do you really want to quit?"):
@@ -100,7 +104,7 @@ class Setup:
                 if not config.has_section('SAVE 1'):
                     config.add_section('SAVE 1')
                 config.set('SAVE 1', 'TITLE', str(title))
-                config.set('SAVE 1', 'COUNT', str(x))
+                config.set('SAVE 1', 'COUNT', str(self.x))
                 with open(file, 'w') as f:
                     config.write(f)
             self.load_window.destroy()

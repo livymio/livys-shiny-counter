@@ -50,7 +50,7 @@ class Setup:
 
         #layout of counter window
         self.load_window = tk.Toplevel()
-        self.load_window.geometry("500x200")
+        self.load_window.geometry("300x150")
         self.load_window['background']='#525252'
 
         self.load_window.title(config['SAVE 1']['TITLE'])
@@ -61,6 +61,8 @@ class Setup:
         self.label2.pack(padx=10)
         self.button = tk.Button(self.load_window, text="Encounters +1", font=('Arial', 18), fg='white', bg='#525252', command=count)
         self.button.pack(padx=10)
+        self.saveButton = tk.Button(self.load_window, text="Save", font=('Arial', 12), fg='white', bg='#525252', command=self.deticated_save)
+        self.saveButton.pack(padx=10, pady=5)
 
         self.root.wm_state('iconic')
 
@@ -74,7 +76,7 @@ class Setup:
     #save the textbox as config var title and open counter
     def save(self):
         global title
-        title = self.textbox.get('1.0', tk.END)
+        title = self.textbox.get('1.0', tk.END).strip()
         
         self.parent = self
         
@@ -82,7 +84,7 @@ class Setup:
         countVar = 0
         
         self.load_window = tk.Toplevel()
-        self.load_window.geometry("500x200")
+        self.load_window.geometry("300x150")
         self.load_window.title(title)
         self.load_window['background']='#525252'
         self.label = tk.Label(self.load_window, text=title, font=('Arial', 18), fg='white', bg='#525252')
@@ -91,6 +93,8 @@ class Setup:
         self.label2.pack(padx=10)
         self.button = tk.Button(self.load_window, text="Encounters +1", font=('Arial', 18), fg='white', bg='#525252', command=self.count)
         self.button.pack(padx=10)
+        self.saveButton = tk.Button(self.load_window, text="Save", font=('Arial', 12), fg='white', bg='#525252', command=self.deticated_save)
+        self.saveButton.pack(padx=10, pady=5)
 
         self.root.wm_state('iconic')
 
@@ -113,5 +117,14 @@ class Setup:
                     config.write(f)
             self.load_window.destroy()
             self.root.destroy()
+
+    def deticated_save(self):
+        if messagebox.askyesno(title="Save?", message="Do you want to save? This will overwrite any previous saves."):
+            if not config.has_section('SAVE 1'): #if the config is empty or doesn't contain SAVE 1 it will write it
+                    config.add_section('SAVE 1')
+                    config.set('SAVE 1', 'TITLE', str(title))
+                    config.set('SAVE 1', 'COUNT', str(self.countVar))
+                    with open(file, 'w') as f:
+                        config.write(f)
 
 Setup()
